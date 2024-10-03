@@ -40,13 +40,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.Text = "GreenERP";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
-            this.Load += new System.EventHandler(this.LoginForm_Load);
-            this.InputLanguageChanged += new System.Windows.Forms.InputLanguageChangedEventHandler(this.LoginForm_InputLanguageChanged);
-            this.InputLanguageChanging += new System.Windows.Forms.InputLanguageChangingEventHandler(this.LoginForm_InputLanguageChanging);
-            this.Shown += new System.EventHandler(this.LoginForm_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginForm_KeyDown);
             this.ResumeLayout(false);
 
         }

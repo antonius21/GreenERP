@@ -12,108 +12,185 @@ namespace GreenERP
 {
     public partial class LoginForm : Form
     {
+        private User[] users = new User[]
+        {
+            new Agronom(01,"Anton","Anton2404","qwerty12345",Role.Agronom),
+            new Mechanisator(02,"Andriy","Andriy2404","qwerty54321",Role.Mechanisator),
+            new Economist(03,"Mykola","Mykola2404","qwerty56789",Role.Economist),
+            new Director(04,"Sergiy","Sergiy2404","qwerty98765",Role.Director),
+            new Administrator(05,"Oleg","Oleg2404","qwerty91285",Role.Administrator),
+        };
+
         public LoginForm()
         {
-            
             InitializeComponent();
             CreateComponent();
         }
-
+        
         private void CreateComponent()
         {
-            this.Size = new Size(400, 400);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Paint += LoginForm_Paint;
+            this.Load += new EventHandler(LoginForm_Load);
+            this.FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
+            this.FormClosed += new FormClosedEventHandler(LoginForm_FormClosed);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonLogin);
+            this.panel1.Controls.Add(this.textBoxPassword);
+            this.panel1.Controls.Add(this.textBoxLogin);
+            this.panel1.Controls.Add(this.labelPassword);
+            this.panel1.Controls.Add(this.labelLogin);
+            this.panel1.Location = new System.Drawing.Point(20, 20);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(260, 140);
+            this.panel1.TabIndex = 0;
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Location = new System.Drawing.Point(100, 100);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogin.TabIndex = 4;
+            this.buttonLogin.Text = "Увійти";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(90, 60);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(150, 20);
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.TabIndex = 3;
+            // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.Location = new System.Drawing.Point(90, 20);
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(150, 20);
+            this.textBoxLogin.TabIndex = 2;
+            // 
+            // labelPassword
+            // 
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(30, 60);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(53, 13);
+            this.labelPassword.TabIndex = 1;
+            this.labelPassword.Text = "Пароль:";
+            // 
+            // labelLogin
+            // 
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.Location = new System.Drawing.Point(30, 20);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(44, 13);
+            this.labelLogin.TabIndex = 0;
+            this.labelLogin.Text = "Логін:";
+            // 
+            // LoginForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(300, 180);
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Форма логіну";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
 
-            Panel loginpanel = new Panel();
-            loginpanel.Dock = DockStyle.Fill;
-            Controls.Add(loginpanel);
-
-            Label loginlabel = new Label();
-            loginlabel.Text = "Логін користувача";
-            loginlabel.Location = new Point(60, 60);
-            loginlabel.AutoSize = true;
-            loginpanel.Controls.Add(loginlabel);
-
-            Label passwordlabel = new Label();
-            passwordlabel.Text = "Пароль користувача";
-            passwordlabel.Location = new Point(60, 120);
-            passwordlabel.AutoSize = true;
-            loginpanel.Controls.Add(passwordlabel);
-
-            TextBox loginBox = new TextBox();
-            loginBox.Location = new Point(240, 60);
-            loginBox.Width = 100;
-            loginpanel.Controls.Add(loginBox);
-
-            TextBox passBox = new TextBox();
-            passBox.Location = new Point(240, 120);
-            passBox.PasswordChar = '*';
-            passBox.Width = 100;
-            loginpanel.Controls.Add(passBox);
-
-            Button loginEnterButton = new Button();
-            loginEnterButton.Location = new Point(100, 200);
-            loginEnterButton.Width = 200;
-            loginEnterButton.Text = "Увійти у систему";
-            loginEnterButton.Click += LoginEnterButton_Click;
-            loginpanel.Controls.Add(loginEnterButton);
         }
 
-        private void LoginForm_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawString("Логін",this.Font,Brushes.Magenta,new Point(10,10));
-        }
+        private System.Windows.Forms.Label labelLogin;
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.TextBox textBoxLogin;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Panel panel1;
 
-        private void LoginEnterButton_Click(object sender, EventArgs e)
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
-            
-        }
+            if (string.IsNullOrEmpty(textBoxLogin.Text) || string.IsNullOrEmpty(textBoxPassword.Text))
+            {
+                MessageBox.Show("Введіть логін та пароль.");
+                return;
+            }
 
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+            User user = users.FirstOrDefault(u => u.Login == textBoxLogin.Text && u.Password == textBoxPassword.Text);
+            if(user != null)
+            {
+                switch (user.userRole) 
+                {
+                    case Role.Administrator:
+                        MainForm adminForm = new MainForm(user);
+                        adminForm.Show();
+                        this.Close();
+                        break;
+
+                    case Role.Director:
+                        MainForm directorForm = new MainForm(user);
+                        directorForm.Show();
+                        this.Close();
+                        break;
+
+                    case Role.Economist:
+                        EconomistForm economistForm = new EconomistForm(user);
+                        economistForm.Show();
+                        this.Close();
+                        break;
+
+                    case Role.Agronom:
+                        AgronomForm agronomForm = new AgronomForm(user);
+                        agronomForm.Show();
+                        this.Close();
+                        break;
+
+                    case Role.Mechanisator:
+                        MechanisatorForm mechanisatorForm = new MechanisatorForm(user);
+                        mechanisatorForm.Show();
+                        this.Close();
+                        break;
+
+                    default:
+                        MessageBox.Show("Вашої ролі не знайдено");
+                        break;
+                }
+            }
+        }
+        private void LoginForm_Load(object sender, EventArgs e)
         {
-            //DB.Close()
+
+            textBoxLogin.Focus();
         }
 
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(e.CloseReason == CloseReason.UserClosing)
+
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBox.Show("Ви впевнені що хочете вийти з додатку?","Вихід", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(result == DialogResult.No){
-                    e.Cancel = true;
+                DialogResult result = MessageBox.Show("Ви впевнені, що хочете закрити форму?", "Вихід", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true; // Заблокувати закриття форми
                 }
             }
-           
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-        }
-
-        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-            {
-                LoginEnterButton_Click( sender,  e);
-            }
-        }
-
-        private void LoginForm_Shown(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LoginForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
-        {
-
-            
-        }
-
-        private void LoginForm_InputLanguageChanging(object sender, InputLanguageChangingEventArgs e)
-        {
-            MessageBox.Show("Невірна мова");
         }
     }
 }
